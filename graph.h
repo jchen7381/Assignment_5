@@ -54,7 +54,7 @@ public:
         priority_queue<pair<int,float>,vector<pair<int,float>>,greater<pair<int,float>>> pq;
         vector<int> dist(V);
         for(unsigned int i = 0;i<V; i++) dist[i] = 1e9;
-        
+        vector<string> paths;
         dist[S] = 0;
         pq.push({0,S});
         while(!pq.empty()){
@@ -62,23 +62,28 @@ public:
             int node = pq.top().second;
             pq.pop();
             
+            string path = to_string(S);
+            string pathNode;
             for(unsigned int i = 0; i < adj_list[node].size(); i++){
                 
                 int edgeWeight = adj_list[node][i].second;
                 int adjNode = adj_list[node][i].first;
-             
+                
                 if(dis + edgeWeight < dist[adjNode]){
                     dist[adjNode] = dis + edgeWeight;
                     pq.push({dist[adjNode], adjNode});
-                    
+                    pathNode = to_string(adjNode);
+                    path = path + " " + pathNode;
                 }
             }
+            paths.push_back(path);
         
         }
         for(unsigned int i = 0; i < dist.size(); i++){
-            cout << i+1 <<": "  << "cost: "<<  dist[i] << endl;
+            cout << i+1 <<": " << paths[i] << " cost: " <<  dist[i] << endl;
             
         }
+       
         
         return dist;
     }
