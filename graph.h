@@ -75,7 +75,11 @@ public:
             }
         
         }
-       
+        for(unsigned int i = 0; i < dist.size(); i++){
+            cout << i+1 <<": "  << "cost: "<<  dist[i] << endl;
+            
+        }
+        
         return dist;
     }
     
