@@ -15,22 +15,27 @@ void graphReader(const string &graph_filename, const string &adjacency_filename)
     
     // Check if the file was opened successfully
     if(!file.is_open()){
-        cerr << "Could not open file!" << endl;
+        cerr << "COULD NOT OPEN FILE!" << endl;
     }
     
     string line;
     getline(file,line);
     int total_vertices = stoi(line);
     Graph list(total_vertices);
-    
+    int vertices_counter{0};
     while(getline(file, line)){
+        vertices_counter++;
+        if(vertices_counter > total_vertices){
+            cerr << "TOO MANY VERTICES!" << endl;
+        }
         stringstream ss(line);
         float num;
         vector<float> nums;
+        
         while(ss >> num){
             if(num <= 0){
-                cerr << "INVALID VERTEX NUMBER!" << endl;
-                abort();
+                cerr << "NO NEGATIVE VERTEX NUMBER ALLOWED!" << endl;
+
             }
             nums.push_back(num);
             
@@ -52,7 +57,7 @@ void graphReader(const string &graph_filename, const string &adjacency_filename)
     
     ifstream adj_file(adjacency_filename);
     if (!adj_file.is_open()){
-        cerr << "Could not open file!" << endl;
+        cerr << "COULD NOT OPEN FILE!" << endl;
     }
     while(getline(adj_file,line)){
         stringstream ss(line);
@@ -60,7 +65,7 @@ void graphReader(const string &graph_filename, const string &adjacency_filename)
         vector<float> query_nums;
         while(ss >> nums){
             if(nums <= 0){
-                cerr << "INVALID QUERY VERTEX NUMBER!" << endl;
+                cerr << "NO NEGATIVE QUERY VERTEX NUMBER!" << endl;
             }
             query_nums.push_back(nums);
     

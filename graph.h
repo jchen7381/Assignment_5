@@ -4,6 +4,7 @@
 #include "binary_heap.h"
 #include <vector>
 #include <map>
+#include <queue>
 
 
 using namespace std;
@@ -49,10 +50,44 @@ public:
         }
     }
     
+    vector<int> Dijkstra(int V, map<int, vector<pair<int, float>>> adj_list, int S){
+        priority_queue<pair<int,float>,vector<pair<int,float>>,greater<pair<int,float>>> pq;
+        vector<int> dist(V);
+        for(unsigned int i = 0;i<V; i++) dist[i] = 1e9;
+        
+        dist[S] = 0;
+        pq.push({0,S});
+        
+        while(!pq.empty()){
+            int dis = pq.top().first;
+            int node = pq.top().second;
+            pq.pop();
+            for(unsigned int i = 0; i < adj_list[node].size(); i++){
+   
+                int edgeWeight = adj_list[node][i].second;
+                int adjNode = adj_list[node][i].first;
+             
+                if(dis + edgeWeight < dist[adjNode]){
+                    dist[adjNode] = dis + edgeWeight;
+                    
+                    pq.push({dist[adjNode], adjNode});
+                }
+            }
+            
+            
+        
+        }
+        
+        return dist;
+    }
+    
+    map<int, vector<pair<int, float>>> getList(){
+        return adj_list;
+    }
+
 private:
     
     int num_of_vertices;
-
     //map from vertices to their corresponding adjacency list.
     map<int, vector<pair<int, float>>> adj_list;
 };
