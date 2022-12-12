@@ -51,7 +51,7 @@ void pathReader(const string graph_filename, const string starting_vertex){
     //list.print();
     int V = total_vertices;
     int S = stoi(starting_vertex);
-    map<int, vector<pair<int, int>>> adj_list = list.getList();
+    map<int, vector<pair<int, float>>> adj_list = list.getList();
     vector<int> distance = list.Dijkstra(V, adj_list,S);
   
    

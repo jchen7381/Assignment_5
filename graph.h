@@ -50,10 +50,10 @@ public:
         }
     }
     
-    vector<int> Dijkstra(int V, map<int, vector<pair<int, int>>> &adj_list, int S){
-        priority_queue<pair<int,int>,vector<pair<int,int>>,greater<pair<int,int>>> pq;
+    vector<int> Dijkstra(int V, map<int, vector<pair<int, float>>> &adj_list, int S){
+        priority_queue<pair<int,float>,vector<pair<int,float>>,greater<pair<int,float>>> pq;
         vector<int> dist(V);
-        for(unsigned int i = 0; i<V ; i++) dist[i] = 1e9;
+        for(unsigned int i = 0;i<V; i++) dist[i] = 1e9;
         
         dist[S] = 0;
         pq.push({0,S});
@@ -81,7 +81,7 @@ public:
         return dist;
     }
     
-    map<int, vector<pair<int, int>>> getList(){
+    map<int, vector<pair<int, float>>> getList(){
         return adj_list;
     }
 
@@ -89,7 +89,7 @@ private:
     
     int num_of_vertices;
     //map from vertices to their corresponding adjacency list.
-    map<int, vector<pair<int, int>>> adj_list;
+    map<int, vector<pair<int, float>>> adj_list;
 };
 
 
