@@ -50,7 +50,7 @@ public:
         }
     }
     
-    vector<int> Dijkstra(int V, map<int, vector<pair<int, float>>> &adj_list, int S){
+    vector<int> Dijkstra(int V, map<int, vector<pair<int, float>>> adj_list, int S){
         priority_queue<pair<int,float>,vector<pair<int,float>>,greater<pair<int,float>>> pq;
         vector<int> dist(V);
         for(unsigned int i = 0;i<V; i++) dist[i] = 1e9;
@@ -75,9 +75,7 @@ public:
             }
         
         }
-        for(unsigned int i = 0; i < dist.size(); i++){
-            cout << dist[i] << endl;
-        }
+       
         return dist;
     }
     
