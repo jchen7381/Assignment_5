@@ -51,11 +51,9 @@ void pathReader(const string graph_filename, const string starting_vertex){
     //list.print();
     int V = total_vertices;
     int S = stoi(starting_vertex);
-   
-    vector<int> distance = list.Dijkstra(V,list.getList(),S);
-    for (unsigned int i = 0; i < distance.size();i++){
-        cout << distance[i] << " " ;
-    }
+    map<int, vector<pair<int, int>>> adj_list = list.getList();
+    vector<int> distance = list.Dijkstra(V, adj_list,S);
+  
    
     
     file.close();
