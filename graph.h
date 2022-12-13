@@ -35,7 +35,7 @@ public:
 
     void isAdjacent(int v1, int v2){
         if(v1 > num_of_vertices){
-            cout << "VERTEX NOT WITHIN LIST" << endl;
+            cerr << "VERTEX NOT WITHIN LIST" << endl;
         
         }
         else{
@@ -52,11 +52,18 @@ public:
     
     void Dijkstra(int V, map<int, vector<pair<int, float>>> adj_list, int S){
         priority_queue<pair<int,float>,vector<pair<int,float>>,greater<pair<int,float>>> pq;
-        vector<double> dist(V);
+        vector<float> dist(V);
         vector<string> paths;
         string path;
         for(unsigned int i = 0;i<V; i++){
             dist[i] = 1e9;
+        }
+        if(S <= 0){
+            cerr << "INVALID STARTING VERTEX (TOO SMALL)!" << endl;
+        }
+        
+        if(S > V){
+            cerr << "INVALID STARTING VERTEX (TOO BIG)!" << endl;
         }
         //source initialized with dist[S] = 0
         dist[S] = 0;
@@ -67,6 +74,7 @@ public:
             int dis = pq.top().first;
             int node = pq.top().second;
             pq.pop();
+            
             paths.push_back(path);
             path = "";
             //check for all adjacent nodes of the popped out element whether the prev dist was larger than current.
@@ -75,21 +83,22 @@ public:
                 int edgeWeight = adj_list[node][i].second;
                 int adjNode = adj_list[node][i].first;
                
-                
-                //if distance if smaller push into queue
+       
+                //if distance is smaller push into queue
                 if(dis + edgeWeight < dist[adjNode]){
                     dist[adjNode] = dis + edgeWeight;
                     pq.push({dist[adjNode], adjNode});
                     path = path + " " + to_string(adjNode);
+                    
                 }
     
                 
             }
-        
+            
         }
         
         //returns all the shortest distances from source to all the nodes.
-        for(unsigned int i = 1; i <= dist.size(); i++){
+        for(unsigned int i = 1; i <= V; i++){
             if(dist[i] == 1e9){
                 cout << i << ": not_possible" << endl;
             }
