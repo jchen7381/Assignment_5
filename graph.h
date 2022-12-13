@@ -52,7 +52,7 @@ public:
     
     void Dijkstra(int V, map<int, vector<pair<int, float>>> adj_list, int S){
         priority_queue<pair<int,float>,vector<pair<int,float>>,greater<pair<int,float>>> pq;
-        vector<int> dist(V);
+        vector<double> dist(V);
         for(unsigned int i = 0;i<V; i++) dist[i] = 1e9;
         
         dist[S] = 0;
@@ -74,6 +74,15 @@ public:
                 }
             }
         
+        }
+        for(unsigned int i = 1; i <= dist.size(); i++){
+            if(dist[i] == 1e9){
+                cout << i << ": not_possible" << endl;
+            }
+            else{
+                cout << i << ": " << S << " cost: " << dist[i] << endl;
+            }
+            
         }
     
     }
