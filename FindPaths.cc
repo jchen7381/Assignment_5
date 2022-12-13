@@ -52,7 +52,7 @@ void pathReader(const string graph_filename, const string starting_vertex){
     int V = total_vertices;
     int S = stoi(starting_vertex);
     map<int, vector<pair<int, float>>> adj_list = list.getList();
-    list.Dijkstra(V, adj_list,S);
+    list.Dijkstra(V,adj_list,S);
     
     
     file.close();
