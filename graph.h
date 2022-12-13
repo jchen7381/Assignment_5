@@ -76,14 +76,9 @@ public:
         
         }
         for(unsigned int i = 1; i <= dist.size(); i++){
-            if(!(dist[i] == 1e9)){
+     
                 cout << i << ": " << S << " cost: " << dist[i] << endl;
                 
-            }
-            else{
-                cout << i << ": not_possible" << endl;
-            }
-            
         }
     
     }
