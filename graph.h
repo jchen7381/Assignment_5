@@ -76,7 +76,7 @@ public:
         
         }
         for(unsigned int i = 1; i <= dist.size(); i++){
-            if(dist[i] == 1e9){
+            if(dist[i] > 100){
                 cout << i << ": not_possible" << endl;
             }
             else{
