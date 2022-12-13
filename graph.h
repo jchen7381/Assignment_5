@@ -22,7 +22,6 @@ public:
         
     }
     
-    //print function
     void print(){
         for(unsigned int i = 0; i < adj_list.size(); i++){
             cout << i << ": ";
@@ -34,9 +33,8 @@ public:
         
     }
 
-    //check if vertices are adjacent to eachother, if so cout weight.
     void isAdjacent(int v1, int v2){
-        if(v1 > num_of_vertices){           //cout vertex not within list if its greater than the num of vertices
+        if(v1 > num_of_vertices){
             cout << "VERTEX NOT WITHIN LIST" << endl;
         
         }
@@ -52,12 +50,12 @@ public:
         }
     }
     
-    //Dijkstra algorithm
     void Dijkstra(int V, map<int, vector<pair<int, float>>> adj_list, int S){
         priority_queue<pair<int,float>,vector<pair<int,float>>,greater<pair<int,float>>> pq;
-        vector<int> distance(V, INT_MAX);
-    
-        distance[S] = 0;
+        vector<int> dist(V , MAX_INPUT);
+        for(unsigned int i = 0; i < V; i++)
+        
+        dist[S] = 0;
         pq.push({0,S});
         while(!pq.empty()){
             int dis = pq.top().first;
@@ -69,20 +67,15 @@ public:
                 int edgeWeight = adj_list[node][i].second;
                 int adjNode = adj_list[node][i].first;
              
-                if(dis + edgeWeight < distance[adjNode]){
-                    distance[adjNode] = dis + edgeWeight;
-                    pq.push({distance[adjNode], adjNode});
+                if(dis + edgeWeight < dist[adjNode]){
+                    dist[adjNode] = dis + edgeWeight;
+                    pq.push({dist[adjNode], adjNode});
                     
                 }
             }
         
         }
-        for(unsigned int i = 0; i < distance.size(); i++){
-            cout << i << ": " << S << " cost: "<<  distance[i] << endl;
-            
-        }
-        
-       
+    
     }
     
     map<int, vector<pair<int, float>>> getList(){
@@ -100,5 +93,4 @@ private:
 
 
 #endif
-
 
