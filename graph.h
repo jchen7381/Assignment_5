@@ -11,7 +11,7 @@ using namespace std;
 
 class Graph {
 public:
-    
+
     Graph(int v){
         num_of_vertices = v;
     }
@@ -32,11 +32,11 @@ public:
         }
         
     }
-    
+
     void isAdjacent(int v1, int v2){
         if(v1 > num_of_vertices){
             cout << "VERTEX NOT WITHIN LIST" << endl;
-            
+        
         }
         else{
             for(unsigned int i = 0; i < adj_list[v1].size(); i++){
@@ -46,57 +46,38 @@ public:
                 }
             }
             cout << v1 << " " << v2 << ": not_connected " << endl;
-            
+
         }
     }
     
-    vector<int> Dijkstra(int  V, map<int, vector<pair<int, float>>> adj_list, int S){
-        // Create a priority queue for storing the nodes as a pair {dist,node}
-        // where dist is the distance from source to the node.
-        priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> pq;
+    vector<int> Dijkstra(int V, map<int, vector<pair<int, float>>> adj_list, int S){
+        priority_queue<pair<int,float>,vector<pair<int,float>>,greater<pair<int,float>>> pq;
+        vector<int> dist(V);
+        for(unsigned int i = 0;i<V; i++) dist[i] = 1e9;
         
-        // Initialising distTo list with a large number to
-        // indicate the nodes are unvisited initially.
-        // This list contains distance from source to the nodes.
-        vector<int> distTo(V, INT_MAX);
-        
-        // Source initialised with dist=0.
-        distTo[S] = 0;
-        pq.push({0, S});
-        
-        // Now, pop the minimum distance node first from the min-heap
-        // and traverse for all its adjacent nodes.
-        while (!pq.empty())
-        {
-            int node = pq.top().second;
+        dist[S] = 0;
+        pq.push({0,S});
+        while(!pq.empty()){
             int dis = pq.top().first;
+            int node = pq.top().second;
             pq.pop();
             
-            // Check for all adjacent nodes of the popped out
-            // element whether the prev dist is larger than current or not.
-            for (unsigned int i = 0; i < adj_list[node].size();i++)
-            {
-                int v = adj_list[node][i].first;
-                int w = adj_list[node][i].second;
+            for(unsigned int i = 0; i < adj_list[node].size(); i++){
                 
-                if (dis + w < distTo[v])
-                {
-                    distTo[v] = dis + w;
+                int edgeWeight = adj_list[node][i].second;
+                int adjNode = adj_list[node][i].first;
+             
+                if(dis + edgeWeight < dist[adjNode]){
+                    dist[adjNode] = dis + edgeWeight;
+                    pq.push({dist[adjNode], adjNode});
                     
-                    // If current distance is smaller,
-                    // push it into the queue.
-                    pq.push({dis + w, v});
                 }
             }
+        
         }
-        // Return the list containing shortest distances
-        // from source to all the nodes.
-        for(unsigned int i = 0; i < V ;i++){
-            cout << distTo[i] << endl;
-        }
-        return distTo;
-    }
        
+        return dist;
+    }
     
     map<int, vector<pair<int, float>>> getList(){
         return adj_list;
@@ -113,3 +94,5 @@ private:
 
 
 #endif
+
+

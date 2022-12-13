@@ -52,9 +52,12 @@ void pathReader(const string graph_filename, const string starting_vertex){
     int V = total_vertices;
     int S = stoi(starting_vertex);
     map<int, vector<pair<int, float>>> adj_list = list.getList();
-    list.Dijkstra(V,adj_list,S);
+    vector<int> distance = list.Dijkstra(V, adj_list,S);
     
-    
+    for(unsigned int i = 0; i < distance.size(); i++){
+        cout << i+1 <<": "  << "cost: "<<  distance[i] << endl;
+        
+    }
     file.close();
     
 }
@@ -74,8 +77,8 @@ int pathfindDriver(int argc, char **argv) {
 
 int main(int argc, char **argv) {
     if (argc != 3) {
-		cout << "Usage: " << argv[0] << " <GRAPH_FILE>" << "<STARTING_VERTEX>" << endl;
-		return 0;
+        cout << "Usage: " << argv[0] << " <GRAPH_FILE>" << "<STARTING_VERTEX>" << endl;
+        return 0;
     }
 
     pathfindDriver(argc, argv);
