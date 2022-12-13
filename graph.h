@@ -68,8 +68,7 @@ public:
             int node = pq.top().second;
             pq.pop();
             paths.push_back(path);
-            
-            path = to_string(S);
+            path = "";
             //check for all adjacent nodes of the popped out element whether the prev dist was larger than current.
         
             for(unsigned int i = 0; i < adj_list[node].size(); i++){
@@ -95,7 +94,7 @@ public:
                 cout << i << ": not_possible" << endl;
             }
             else{
-                cout << i  << ": " << paths[i] <<  " cost: " << dist[i] << endl;
+                cout << i  << ": " << S << paths[i] <<  " cost: " << dist[i] << endl;
             }
         }
     
