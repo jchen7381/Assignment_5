@@ -53,36 +53,49 @@ public:
     void Dijkstra(int V, map<int, vector<pair<int, float>>> adj_list, int S){
         priority_queue<pair<int,float>,vector<pair<int,float>>,greater<pair<int,float>>> pq;
         vector<double> dist(V);
+        vector<string> paths;
+        string path;
         for(unsigned int i = 0;i<V; i++){
             dist[i] = 1e9;
         }
-        
+        //source initialized with dist[S] = 0
         dist[S] = 0;
         pq.push({0,S});
+        //pop minimum distance node first from the min-heap and traverse for all its adjacent nodes.
         while(!pq.empty()){
+            
             int dis = pq.top().first;
             int node = pq.top().second;
             pq.pop();
+            paths.push_back(path);
             
+            path = to_string(S);
+            //check for all adjacent nodes of the popped out element whether the prev dist was larger than current.
+        
             for(unsigned int i = 0; i < adj_list[node].size(); i++){
-                
                 int edgeWeight = adj_list[node][i].second;
                 int adjNode = adj_list[node][i].first;
-             
+               
+                
+                //if distance if smaller push into queue
                 if(dis + edgeWeight < dist[adjNode]){
                     dist[adjNode] = dis + edgeWeight;
                     pq.push({dist[adjNode], adjNode});
-                    
+                    path = path + " " + to_string(adjNode);
                 }
+    
+                
             }
         
         }
+        
+        //returns all the shortest distances from source to all the nodes.
         for(unsigned int i = 1; i <= dist.size(); i++){
             if(dist[i] == 1e9){
                 cout << i << ": not_possible" << endl;
             }
             else{
-                cout << i << ": " << S << " cost: " << dist[i] << endl;
+                cout << i  << ": " << paths[i] <<  " cost: " << dist[i] << endl;
             }
         }
     
