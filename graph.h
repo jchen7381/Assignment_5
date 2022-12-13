@@ -50,12 +50,11 @@ public:
         }
     }
     
-    vector<int> Dijkstra(int V, map<int, vector<pair<int, float>>> adj_list, int S){
+    void Dijkstra(int V, map<int, vector<pair<int, float>>> adj_list, int S){
         priority_queue<pair<int,float>,vector<pair<int,float>>,greater<pair<int,float>>> pq;
-        vector<int> dist(V);
-        for(unsigned int i = 0;i<V; i++) dist[i] = 1e9;
-        
-        dist[S] = 0;
+        vector<int> distance(V, INT_MAX);
+    
+        distance[S] = 0;
         pq.push({0,S});
         while(!pq.empty()){
             int dis = pq.top().first;
@@ -67,16 +66,20 @@ public:
                 int edgeWeight = adj_list[node][i].second;
                 int adjNode = adj_list[node][i].first;
              
-                if(dis + edgeWeight < dist[adjNode]){
-                    dist[adjNode] = dis + edgeWeight;
-                    pq.push({dist[adjNode], adjNode});
+                if(dis + edgeWeight < distance[adjNode]){
+                    distance[adjNode] = dis + edgeWeight;
+                    pq.push({distance[adjNode], adjNode});
                     
                 }
             }
         
         }
+        for(unsigned int i = 1; i <= distance.size(); i++){
+            cout << i << ": " << S << " cost: "<<  distance[i] << endl;
+            
+        }
+        
        
-        return dist;
     }
     
     map<int, vector<pair<int, float>>> getList(){
